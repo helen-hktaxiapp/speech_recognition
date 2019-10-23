@@ -87,7 +87,7 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
         }
     }
 
-    private Locale getAndroidLocaleCode(String code) {
+    private String getAndroidLocaleCode(String code) {
         return code.replace("_", "-");
     }
 
