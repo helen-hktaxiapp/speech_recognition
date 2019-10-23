@@ -82,7 +82,7 @@ class SpeechRecognition {
       recognitionStartedHandler = handler;
 
   // define a method to handle native call
-  void setRecognitionCompleteHandler(StringResultHandler handler) =>
+  void setRecognitionCompleteHandler(VoidCallback handler) =>
       recognitionCompleteHandler = handler;
 
   void setCurrentLocaleHandler(StringResultHandler handler) =>

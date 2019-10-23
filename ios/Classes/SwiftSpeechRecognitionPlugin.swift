@@ -10,7 +10,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
-  private let speechRecognizerHk = SFSpeechRecognizer(locale: Locale(identifier: "zh_Hant_HK"))!
+  private let speechRecognizerHk = SFSpeechRecognizer(locale: Locale(identifier: "zh_HK"))!
   private let speechRecognizerFr = SFSpeechRecognizer(locale: Locale(identifier: "fr_FR"))!
   private let speechRecognizerEn = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))!
   private let speechRecognizerRu = SFSpeechRecognizer(locale: Locale(identifier: "ru_RU"))!
