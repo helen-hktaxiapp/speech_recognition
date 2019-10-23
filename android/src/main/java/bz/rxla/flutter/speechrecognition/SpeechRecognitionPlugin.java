@@ -87,14 +87,11 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
         }
     }
 
-    private Locale getLocale(String code) {
+    private String getLocale(String code) {
         if (code == "zh_HK") {
-            Locale aLocale = new Builder().setLanguage("zh").setScript("Hant").setRegion("HK").build();
-            return aLocale;
-        } else {
-            String[] localeParts = code.split("_");
-            return new Locale(localeParts[0], localeParts[1]);
+            return "zh-Hant-HK";
         }
+        return code.replace("_", "-");
     }
 
     @Override
