@@ -15,7 +15,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
+import java.util.Locale.Builder;
 /**
  * SpeechRecognitionPlugin
  */
