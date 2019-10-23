@@ -88,7 +88,7 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
     }
 
     private Locale getLocale(String code) {
-        if (code == 'zh_HK') {
+        if (code == "zh_HK") {
             Locale aLocale = new Builder().setLanguage("zh").setScript("Hans").setRegion("HK").build();
             return aLocale;
         } else {
