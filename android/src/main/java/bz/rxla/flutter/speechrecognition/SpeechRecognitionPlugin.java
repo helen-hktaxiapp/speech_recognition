@@ -64,7 +64,7 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
                 result.success(true);
                 break;
             case "speech.listen":
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getAndroidLocaleCode(call.arguments.toString()));
+                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getLocale(call.arguments.toString()));
                 speech.startListening(recognizerIntent);
                 result.success(true);
                 break;
@@ -87,8 +87,14 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
         }
     }
 
-    private String getAndroidLocaleCode(String code) {
-        return code.replace("_", "-");
+    private Locale getLocale(String code) {
+        if (code == 'zh_HK') {
+            Locale aLocale = new Builder().setLanguage("zh").setScript("Hans").setRegion("HK").build();
+            return aLocale;
+        } else {
+            String[] localeParts = code.split("_");
+            return new Locale(localeParts[0], localeParts[1]);
+        }
     }
 
     @Override
