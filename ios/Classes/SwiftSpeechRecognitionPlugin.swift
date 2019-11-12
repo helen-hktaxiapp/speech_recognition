@@ -10,6 +10,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
+  private let speechRecognizerHk = SFSpeechRecognizer(locale: Locale(identifier: "zh_HK"))!
   private let speechRecognizerFr = SFSpeechRecognizer(locale: Locale(identifier: "fr_FR"))!
   private let speechRecognizerEn = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))!
   private let speechRecognizerRu = SFSpeechRecognizer(locale: Locale(identifier: "ru_RU"))!
@@ -46,6 +47,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
   }
 
   private func activateRecognition(result: @escaping FlutterResult) {
+    speechRecognizerHk.delegate = self
     speechRecognizerFr.delegate = self
     speechRecognizerEn.delegate = self
     speechRecognizerRu.delegate = self
@@ -161,18 +163,20 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
 
   private func getRecognizer(lang: String) -> Speech.SFSpeechRecognizer {
     switch (lang) {
-    case "fr_FR":
-      return speechRecognizerFr
-    case "en_US":
-      return speechRecognizerEn
-    case "ru_RU":
-      return speechRecognizerRu
-    case "it_IT":
-      return speechRecognizerIt
-    case "es_ES":
+      case "zh_HK":
+        return speechRecognizerHk
+      case "fr_FR":
+        return speechRecognizerFr
+      case "en_US":
+        return speechRecognizerEn
+      case "ru_RU":
+        return speechRecognizerRu
+      case "it_IT":
+        return speechRecognizerIt
+      case "es_ES":
         return speechRecognizerEs
-    default:
-      return speechRecognizerFr
+      default:
+        return speechRecognizerHk
     }
   }
 
