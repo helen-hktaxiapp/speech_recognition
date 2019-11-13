@@ -66,7 +66,7 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
                 // } else {
                 //     locale = config.locale;
                 // }
-                Locale locale = Locale("zh", "HK");
+                Locale locale = new Locale("zh", "HK");
                 Log.d(LOG_TAG, "Current Locale : " + locale.toString());
                 speechChannel.invokeMethod("speech.onCurrentLocale", locale.toString());
                 result.success(true);
