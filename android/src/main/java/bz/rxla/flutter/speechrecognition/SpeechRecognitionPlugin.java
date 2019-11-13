@@ -2,6 +2,7 @@ package bz.rxla.flutter.speechrecognition;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -58,13 +59,20 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
             case "speech.activate":
                 // FIXME => Dummy activation verification : we assume that speech recognition permission
                 // is declared in the manifest and accepted during installation ( AndroidSDK 21- )
-                Locale locale = activity.getResources().getConfiguration().locale;
+                // Configuration config = activity.getResources().getConfiguration();
+                // Locale locale;
+                // if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                //     locale = config.getLocales().get(0);
+                // } else {
+                //     locale = config.locale;
+                // }
+                Locale locale = Locale("zh", "HK");
                 Log.d(LOG_TAG, "Current Locale : " + locale.toString());
                 speechChannel.invokeMethod("speech.onCurrentLocale", locale.toString());
                 result.success(true);
                 break;
             case "speech.listen":
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getLocale(call.arguments.toString()));
+                // recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getLocale(call.arguments.toString()));
                 speech.startListening(recognizerIntent);
                 result.success(true);
                 break;
