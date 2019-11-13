@@ -71,7 +71,7 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
                 result.success(true);
                 break;
             case "speech.listen":
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "zh_HK");
+                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getLocale(call.arguments.toString()));
                 speech.startListening(recognizerIntent);
                 result.success(true);
                 break;
@@ -95,9 +95,6 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
     }
 
     private String getLocale(String code) {
-        if (code == "zh_HK") {
-            return "zh-Hant-HK";
-        }
         return code.replace("_", "-");
     }
 
