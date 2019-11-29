@@ -80,6 +80,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
     if audioEngine.isRunning {
       audioEngine.stop()
       recognitionRequest?.endAudio()
+      audioEngine.inputNode.removeTap(onBus: 0)
       result(false)
     } else {
       try! start(lang: lang)

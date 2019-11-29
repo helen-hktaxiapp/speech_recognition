@@ -95,7 +95,10 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
     }
 
     private String getLocale(String code) {
-        return code.replace("_", "-");
+        if (code == "zh_HK") {
+            return "zh_HK_#Hant"
+        }
+        return code
     }
 
     @Override
