@@ -3,6 +3,11 @@
 
 @implementation SpeechRecognitionPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftSpeechRecognitionPlugin registerWithRegistrar:registrar];
+    if (@available(iOS 10.0, *)) {
+        [SwiftSpeechRecognitionPlugin registerWithRegistrar:registrar];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 @end
+
