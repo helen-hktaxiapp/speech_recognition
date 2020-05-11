@@ -81,6 +81,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
       audioEngine.stop()
       recognitionRequest?.endAudio()
       audioEngine.inputNode.removeTap(onBus: 0)
+      self.recognitionTask?.cancel()
       result(false)
     } else {
       try! start(lang: lang)
@@ -91,6 +92,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
   private func cancelRecognition(result: FlutterResult?) {
     if let recognitionTask = recognitionTask {
       recognitionTask.cancel()
+      self.recognitionRequest?.endAudio()
       self.recognitionTask = nil
       if let r = result {
         r(false)
@@ -101,6 +103,7 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
   private func stopRecognition(result: FlutterResult) {
     if audioEngine.isRunning {
       audioEngine.stop()
+      audioEngine.inputNode.removeTap(onBus: 0)
       recognitionRequest?.endAudio()
     }
     result(false)
@@ -130,23 +133,25 @@ public class SwiftSpeechRecognitionPlugin: NSObject, FlutterPlugin, SFSpeechReco
     recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
       var isFinal = false
 
-      if let result = result {
-        print("Speech : \(result.bestTranscription.formattedString)")
-        self.speechChannel?.invokeMethod("speech.onSpeech", arguments: result.bestTranscription.formattedString)
-        isFinal = result.isFinal
-        if isFinal {
-          self.speechChannel!.invokeMethod(
-             "speech.onRecognitionComplete",
-             arguments: result.bestTranscription.formattedString
-          )
+      if result != nil {
+        if let result = result {
+          print("Speech : \(result.bestTranscription.formattedString)")
+          self.speechChannel?.invokeMethod("speech.onSpeech", arguments: result.bestTranscription.formattedString)
+          isFinal = result.isFinal
+          if isFinal {
+            self.speechChannel!.invokeMethod(
+              "speech.onRecognitionComplete",
+              arguments: result.bestTranscription.formattedString
+            )
+          }
         }
-      }
 
-      if error != nil || isFinal {
-        self.audioEngine.stop()
-        inputNode.removeTap(onBus: 0)
-        self.recognitionRequest = nil
-        self.recognitionTask = nil
+        if error != nil || isFinal {
+          self.audioEngine.stop()
+          inputNode.removeTap(onBus: 0)
+          self.recognitionRequest = nil
+          self.recognitionTask = nil
+        }
       }
     }
 
