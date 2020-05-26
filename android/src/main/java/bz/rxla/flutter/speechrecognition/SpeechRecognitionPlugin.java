@@ -164,7 +164,6 @@ public class SpeechRecognitionPlugin implements MethodCallHandler, RecognitionLi
             Log.d(LOG_TAG, "onResults -> " + transcription);
             sendTranscription(true);
         }
-        sendTranscription(false);
     }
 
     private void sendTranscription(boolean isFinal) {
