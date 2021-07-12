@@ -26,7 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  SpeechRecognition _speech;
+  late SpeechRecognition _speech;
 
   bool _speechRecognitionAvailable = false;
   bool _isListening = false;
@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
     setState(() => selectedLang = lang);
   }
 
-  Widget _buildButton({String label, VoidCallback onPressed}) => new Padding(
+  Widget _buildButton({required String label, VoidCallback? onPressed}) => new Padding(
       padding: new EdgeInsets.all(12.0),
       child: new RaisedButton(
         color: Colors.cyan.shade600,
@@ -139,10 +139,10 @@ class _MyAppState extends State<MyApp> {
         setState(() => _isListening = result);
       });
 
-  void onSpeechAvailability(bool result) =>
-      setState(() => _speechRecognitionAvailable = result);
+  void onSpeechAvailability(bool? result) =>
+      setState(() => _speechRecognitionAvailable = result!);
 
-  void onCurrentLocale(String locale) {
+  void onCurrentLocale(String? locale) {
     print('_MyAppState.onCurrentLocale... $locale');
     setState(
         () => selectedLang = languages.firstWhere((l) => l.code == locale));
@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> {
 
   void onRecognitionStarted() => setState(() => _isListening = true);
 
-  void onRecognitionResult(String text) => setState(() => transcription = text);
+  void onRecognitionResult(String? text) => setState(() => transcription = text!);
 
   void onRecognitionComplete() => setState(() => _isListening = false);
 

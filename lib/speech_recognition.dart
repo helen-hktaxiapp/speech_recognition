@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 
-typedef void AvailabilityHandler(bool result);
-typedef void StringResultHandler(String text);
+typedef void AvailabilityHandler(bool? result);
+typedef void StringResultHandler(String? text);
 
 /// the channel to control the speech recognition
 class SpeechRecognition {
@@ -19,22 +19,22 @@ class SpeechRecognition {
     _channel.setMethodCallHandler(_platformCallHandler);
   }
 
-  AvailabilityHandler availabilityHandler;
+  late AvailabilityHandler availabilityHandler;
 
-  StringResultHandler currentLocaleHandler;
-  StringResultHandler recognitionResultHandler;
+  late StringResultHandler currentLocaleHandler;
+  late StringResultHandler recognitionResultHandler;
 
-  VoidCallback recognitionStartedHandler;
+  late VoidCallback recognitionStartedHandler;
 
-  StringResultHandler recognitionCompleteHandler;
+  late StringResultHandler recognitionCompleteHandler;
   
-  VoidCallback errorHandler;
+  late VoidCallback errorHandler;
 
   /// ask for speech  recognizer permission
   Future activate() => _channel.invokeMethod("speech.activate");
 
   /// start listening
-  Future listen({String locale}) =>
+  Future listen({String? locale}) =>
       _channel.invokeMethod("speech.listen", locale);
 
   /// cancel speech
