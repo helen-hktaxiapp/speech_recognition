@@ -35,7 +35,7 @@
       "name": "speech_recognition",
       "rootUri": "../../",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
@@ -56,7 +56,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-07-12T08:17:18.354300Z",
+  "generated": "2021-07-13T03:32:23.958023Z",
   "generator": "pub",
   "generatorVersion": "2.13.3"
 }
